@@ -26,12 +26,13 @@ class RegisterStudentFlow (
     }
 
     private fun outputState(): EmployeeState {
+        val partyA = stringToParty("PartyA") //sample only
         return EmployeeState(
                 name = name,
                 age = age,
                 id = id,
                 linearId = UniqueIdentifier(),
-                participants = listOf(ourIdentity) // add the other name of node in other party
+                participants = listOf(ourIdentity, partyA) // add the other name of node in other party
         )
     }
 
