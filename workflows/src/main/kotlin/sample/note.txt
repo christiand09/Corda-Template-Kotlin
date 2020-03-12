@@ -1,0 +1,16 @@
+
+
+-) List<StateAndRef<EmployeeState>>
+==> serviceHub.vaultService.queryBy<EmployeeState>().states
+
+SAMPLE FIND CODE ->
+    val bidStateRef = serviceHub.vaultService.queryBy<ProductBidState>().states
+    val bidState = bidStateRef.find {
+            it.state.data.bidId == bidId
+    }?: throw IllegalArgumentException("no found id: $bidId")
+    val bidInfo = bidState.state.data
+<-
+
+SAMPLE COMMAND ->
+     val requestCommand = Command(ProductBidContract.Commands.Register(), outState().participants.map { it.owningKey })
+<-

@@ -2,9 +2,11 @@ package sample.flows.student
 
 import co.paralleluniverse.fibers.Suspendable
 import net.corda.core.contracts.Command
+import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.contracts.requireThat
 import net.corda.core.flows.*
+import net.corda.core.node.services.queryBy
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
 import sample.contractAndState.employee.EmployeeContract
@@ -24,6 +26,15 @@ class RegisterStudentFlow (
         val transactionSignedByAllParties = collectSignature(verifyAndSign(transaction()), session)
         return subFlow(FinalityFlow(transactionSignedByAllParties, session))
     }
+
+    /** SAMPLE INPUT
+    private fun inputState(): StateAndRef<EmployeeState> {
+        val employeeStateRef = serviceHub.vaultService.queryBy<EmployeeState>().states
+        return employeeStateRef.find {
+            it.state.data.id == id
+        }?: throw IllegalArgumentException("no found id: $id")
+    }
+    **/
 
     private fun outputState(): EmployeeState {
         val partyA = stringToParty("PartyA") //sample only

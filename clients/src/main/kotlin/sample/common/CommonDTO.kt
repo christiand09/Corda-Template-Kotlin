@@ -5,3 +5,8 @@ data class ResponseDTO (
         var message: String?,
         var result: Any?
 ):java.io.Serializable
+
+data class NodeInfoDTO(
+        val name: String,
+        val address: String
+)

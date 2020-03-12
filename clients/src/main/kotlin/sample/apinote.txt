@@ -1,0 +1,13 @@
+
+
+-) List<StateAndRef<EmployeeState>>
+==> rpc: NodeRPCConnection
+==> rpc.proxy.vaultQuery(ProductBidState::class.java).states
+
+SAMPLE FIND CODE ->
+    val bidStateRef = rpc.proxy.vaultQuery(ProductBidState::class.java).states
+    val bidState = bidStateRef.find {
+            it.state.data.bidId == bidId
+    }?: throw IllegalArgumentException("no found id: $bidId")
+    val bidInfo = bidState.state.data
+<-
